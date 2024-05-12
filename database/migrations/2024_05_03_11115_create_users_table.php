@@ -18,9 +18,12 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('username');
             $table->string('email')->unique();
+            $table->string('profile_picture')->nullable()->default('https://thumbs.dreamstime.com/z/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg?ct=jpeg');
             $table->string('password');
             $table->timestamps();
         });
+    
+     
     }
 
     /**
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+          Schema::dropIfExists('users');
     }
 };

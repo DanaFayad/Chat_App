@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ConversationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +20,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Route::prefix('version_1')->group(function () {
+//     Route::resource('users', UserController::class);
+//     Route::resource('conversations', ConversationController::class);
+//     Route::resource('messages', MessageController::class);
+// });
+
+
+Route::get('messages/user/{userId}', [MessageController::class, 'getUserMessages']);
