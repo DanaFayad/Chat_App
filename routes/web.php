@@ -43,12 +43,3 @@ use App\Http\Controllers\ConversationController;
 Route::get('/chat_list/{userId}', [ConversationController::class, 'showChatList'])->name('chat_list');
 Route::get('/chat/{conversation_id}', [MessageController::class, 'getConversationMessages']);
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
