@@ -10,7 +10,17 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Include Pusher.js -->
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+<!-- Include Laravel Echo -->
+<script src="/js/echo.js"></script>
+
+
 <script>
+
+    
     // $(document).ready(function() {
     //     const userId = 1;
     //     $.ajax({

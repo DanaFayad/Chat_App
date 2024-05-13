@@ -14,6 +14,17 @@ class ConversationController extends Controller
 {
 
 
+  
+
+    public function showChat($conversation_id)
+    {
+
+        $messageModel = new Message();
+        $messages = $messageModel->getMessagesbyConversationID($conversation_id);
+        return view('chat', ['conversation_id' => $conversation_id]);
+
+    }
+
     public function showChatList($userId){
         $conversations = $this->getChatList($userId);
         return view('chat_list', compact('conversations'));

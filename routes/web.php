@@ -41,5 +41,9 @@ use App\Http\Controllers\ConversationController;
 
 // view 
 Route::get('/chat_list/{userId}', [ConversationController::class, 'showChatList'])->name('chat_list');
-Route::get('/chat/{conversation_id}', [MessageController::class, 'getConversationMessages']);
 
+
+// Route::get('/messages/{conversation_id}', [MessageController::class, 'index']);
+Route::post('/messages', [MessageController::class, 'store']);
+Route::get('/chat/{conversation_id}',  [ConversationController::class, 'showChat']);
+Route::get('/messages/{conversation_id}', [MessageController::class, 'getConversationMessages']);
