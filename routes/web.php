@@ -28,6 +28,7 @@ Route::view('/chat', 'chat');
 
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\Auth\LoginController;
 
 //http://127.0.0.1:8000/messages/user/4
 // Route::get('/messages/user/{userId}', [MessageController::class, 'getUserMessages']);
@@ -47,3 +48,13 @@ Route::get('/chat_list/{userId}', [ConversationController::class, 'showChatList'
 Route::post('/messages', [MessageController::class, 'store']);
 Route::get('/chat/{conversation_id}',  [ConversationController::class, 'showChat']);
 Route::get('/messages/{conversation_id}', [MessageController::class, 'getConversationMessages']);
+
+
+
+/*Login */
+Route::get('login', [LoginController::class, 'loginView'])->name('login');
+Route::post('sign_in', [LoginController::class, 'sign_in'])->name('sign_in');
+/*END Login */
+
+
+Route::get('/contact_list', [ConversationController::class, 'getUserContacts']);

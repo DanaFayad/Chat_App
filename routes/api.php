@@ -30,3 +30,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('messages/user/{userId}', [MessageController::class, 'getUserMessages']);
+Route::post('/messages', [MessageController::class, 'store']);
+Route::get('/chat/{conversation_id}',  [ConversationController::class, 'showChat']);
+Route::get('/messages/{conversation_id}', [MessageController::class, 'getConversationMessages']);
