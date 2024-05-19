@@ -28,8 +28,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     Route::resource('messages', MessageController::class);
 // });
 
-
+/*get messages for users */
 Route::get('/messages/{contact_id}/{userId}', [MessageController::class, 'getUserMessages']);
+/*add new messgae */
 Route::post('/new_chat', [MessageController::class, 'store']);
 Route::get('/chat/{contact_id}/{userId}',  [ConversationController::class, 'showChat']);
 Route::get('/messages/{conversation_id}', [MessageController::class, 'getConversationMessages']);
@@ -43,6 +44,5 @@ Route::get('/chats/{userId}', [ConversationController::class, 'getUserContactsAn
 
 
 
-Route::get('/user_chats/{contact_id}/{user_id}', [ConversationController::class, '']);
 
 
