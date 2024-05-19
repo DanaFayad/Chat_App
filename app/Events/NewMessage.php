@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewMessage
+class NewMessage  implements ShouldBroadcast
 {
     public $messages;
 
@@ -26,8 +26,15 @@ class NewMessage
         $this->messages = $messages;
     }
 
+
     public function broadcastOn()
     {
-        return new Channel('chat.' . $this->messages->first()->conversation_id);
+        return new Channel('chat.' . $this->messages->conversation_id);
     }
+
+    public function broadcastAs()
+    {
+        return 'NewMessage';
+    }
+    
 }

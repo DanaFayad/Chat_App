@@ -39,5 +39,14 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+
+        DB::table('user_contacts')->insert([
+            ['user_id' => 1, 'contact_id' => 2],
+            ['user_id' => 1, 'contact_id' => 3],
+            ['user_id' => 2, 'contact_id' => 1],
+            ['user_id' => 3, 'contact_id' => 1],
+        ]);
     }
+    
 }

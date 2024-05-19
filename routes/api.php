@@ -29,7 +29,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // });
 
 
-Route::get('messages/user/{userId}', [MessageController::class, 'getUserMessages']);
-Route::post('/messages', [MessageController::class, 'store']);
-Route::get('/chat/{conversation_id}',  [ConversationController::class, 'showChat']);
+Route::get('/messages/{contact_id}/{userId}', [MessageController::class, 'getUserMessages']);
+Route::post('/new_chat', [MessageController::class, 'store']);
+Route::get('/chat/{contact_id}/{userId}',  [ConversationController::class, 'showChat']);
 Route::get('/messages/{conversation_id}', [MessageController::class, 'getConversationMessages']);
+
+Route::get('/contact_list/{userId}', [ConversationController::class, 'getUserContacts_by_id']);
+
+
+/*Get conversation and chat list for sepfifc user */
+Route::get('/chats/{userId}', [ConversationController::class, 'getUserContactsAndChatsList']);
+
+
+
+
+Route::get('/user_chats/{contact_id}/{user_id}', [ConversationController::class, '']);
+
+

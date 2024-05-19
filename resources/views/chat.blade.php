@@ -15,6 +15,9 @@
     </div>
     <form id="message_form">
         <input type="hidden" id="chat-id" value="{{ $conversation_id }}">
+        <input type="hidden" id="user_id" value="{{ $user_id  }}">
+        <input type="hidden" id="contact_id" value="{{ $contact_id  }}">
+
         <input type="text" id="msg_input" placeholder="Type your message...">
         <button type="submit">Send</button>
     </form>
@@ -39,18 +42,16 @@
                 event.preventDefault();
                 var messageContent = $('#msg_input').val();
                 sendMessage(messageContent);
-                $('#msg_input').val(''); 
+                $('#msg_input').val('');
             });
 
-            subscribeToChannel();
-
+            fetchAllMessages();
             setInterval(fetchAllMessages, 5000);
-
 
         });
 
         function fetchAllMessages() {
-        
+
             $.ajax({
                 url: '/messages/' + $("#chat-id").val(),
                 method: 'GET',
@@ -69,17 +70,20 @@
 
         function sendMessage(content) {
             $.ajax({
-                url: '/messages',
+                url: '/new_chat',
                 method: 'POST',
                 data: {
                     content: content,
-                    conversation_id: $("#chat-id").val(),
+                    user_id: $("#user_id").val(),
+                    contact_id: $("#contact_id").val(),
+
                 },
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 success: function(response) {
                     console.log('Message sent successfully:', response);
+                    subscribeToChannel(response.conversation_id);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error sending message:', error);
@@ -88,9 +92,20 @@
             });
         }
 
-        function subscribeToChannel() {
-            var channel = pusher.subscribe('chat.' + $("#chat-id").val());
+        function subscribeToChannel(conversation_id) {
+            console.log('Subscribing to channel: chat.' + conversation_id);
+            var channel = pusher.subscribe('chat.' + conversation_id);
+
+            channel.bind('pusher:subscription_succeeded', function() {
+                console.log('Subscription succeeded for channel: chat.' + conversation_id);
+            });
+
+            channel.bind('pusher:subscription_error', function(status) {
+                console.log('Subscription error:', status);
+            });
+
             channel.bind('NewMessage', function(data) {
+                console.log(data);
                 $('#chat-container').append('<div><strong>' + data.message.sender_id + ':</strong> ' + data.message.content + '</div>');
             });
         }

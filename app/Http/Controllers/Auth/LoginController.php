@@ -18,7 +18,7 @@ class LoginController extends Controller
         $user_credentials = $request->only('username', 'password');
         if (Auth::attempt($user_credentials)) {
             $id = Auth::id(); 
-            return redirect()->intended('contact_list');
+            return redirect()->intended('chat_list/'.$id);
         }
         return redirect()->back()->withErrors(['username' => 'Invalid credentials']);
     }
