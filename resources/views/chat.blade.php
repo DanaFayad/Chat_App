@@ -84,6 +84,7 @@
                 success: function(response) {
                     console.log('Message sent successfully:', response);
                     subscribeToChannel(response.conversation_id);
+                    $("#chat-id").val(response.conversation_id);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error sending message:', error);
